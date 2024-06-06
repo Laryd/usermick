@@ -1,10 +1,33 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NotFoundPage from "./pages/NotFoundPage.tsx";
+import SignIn from "./pages/SignIn.tsx";
+import SignUp from "./pages/SignUp.tsx";
+import { NavBar } from "./components/NavBar.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/signin",
+    element: <SignIn />,
+    errorElement: <NotFoundPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUp />,
+    errorElement: <NotFoundPage />,
+  },
+]);
+
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
