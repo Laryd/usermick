@@ -26,7 +26,7 @@ export const NavBar = () => {
         <NavigationMenuList className="container h-20 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
             <Link to="/" className="ml-2 mb-2 font-bold text-xl flex">
-              <img src="/logo.svg" alt="logo" />
+              <img src="/assets/react.svg" alt="logo" />
             </Link>
           </NavigationMenuItem>
 
