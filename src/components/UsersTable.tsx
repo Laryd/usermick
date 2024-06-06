@@ -3,7 +3,6 @@ import { FormEvent, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -12,9 +11,7 @@ import {
 } from "./ui/table";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { RotateCw, Search, Trash, Trash2, UserIcon } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Label } from "./ui/label";
+import { RotateCw, Search, Trash2, UserIcon } from "lucide-react";
 
 interface User {
   id: number;
