@@ -28,38 +28,43 @@ This project is a user management system built using React.js, which allows user
 1. Clone the repository:
 
    ```bash
-   git clone <repository_url>
-Navigate to the project directory:
-cd user-management-system
-Install dependencies:
-npm install
-Start the development server:
+       git clone <repository_url>
+       Navigate to the project directory:
+       cd user-management-system
+     Install dependencies:
+     npm install
+    Start the development server:
 
-npm start
-Usage:
-Sign In: Upon accessing the application, users are required to sign in using their credentials.
+     npm start
+      Usage:
 
-User Listing: Once signed in, users can view the list of users with their details.
+     Sign In: Upon accessing the application, users are required to sign in using their credentials.
 
-Search Users: Users can search for specific users by name using the search input field.
+     User Listing: Once signed in, users can view the list of users with their details.
 
-Add User (Admin Only): Admin users can add new users to the system by clicking the "Add User" button and filling out the required details in the modal form.
+     Search Users: Users can search for specific users by name using the search input field.
 
-Edit User (All users): Users can edit the details of existing users by clicking the "Edit" button next to each user and modifying the details in the modal form.
+     Add User (Admin Only): Admin users can add new users to the system by clicking the "Add User" button and filling out the required details in the modal form.
 
-Delete User (All users): Users can delete existing users from the system by clicking the "Delete" button next to each user.
+     Edit User (All users): Users can edit the details of existing users by clicking the "Edit" button next to each user and modifying the details in the modal form.
 
-Dependencies:
- axios: Used for making HTTP requests to the API.
- react-router-dom: Used for routing and navigation within the application.
- zod: Used for schema validation of form data.
- lucide-react: Provides icons for user interface elements.
-  UI components: Includes custom components for buttons, inputs, tables, pagination, and modals.
+     Delete User (All users): Users can delete existing users from the system by clicking the "Delete" button next to each user.
 
-API Integration:
-The application communicates with a JSON Server API for managing user data.
-The API endpoint is defined using the API_URL constant, which points to the JSON Server API.
-Authentication:
-User authentication is implemented using JSON Web Tokens (JWT).
-Upon successful sign-in, a JWT token is stored in the local storage, which is used for subsequent authenticated requests.
-Admin users are identified based on their role in the user data.
+     Dependencies:
+     axios: Used for making HTTP requests to the API.
+     react-router-dom: Used for routing and navigation within the application.
+     zod: Used for schema validation of form data.
+    lucide-react: Provides icons for user interface elements.
+    shadcn-ui: Includes custom components for buttons, inputs, tables, pagination, and modals.
+
+    API Integration:
+    The application communicates with a JSON Server API for managing user data.
+    The API endpoint is defined using the API_URL constant, which points to the JSON Server API.
+    Authentication:
+    User authentication is implemented using JSON Web Tokens (JWT).
+    Upon successful sign-in, a JWT token is stored in the local storage, which is used for subsequent authenticated requests.
+    Admin users are identified based on their role in the user data.
+
+   find tryout data in the following [repository:](https://github.com/Laryd/myjsonserver)!
+
+   
