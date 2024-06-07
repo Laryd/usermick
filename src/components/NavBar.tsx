@@ -1,5 +1,4 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -12,21 +11,50 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-
 import { Button, buttonVariants } from "./ui/button";
 import { Menu, MoveRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
+type User = {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  telephone: string;
+  location: string;
+  isAdmin: boolean;
+};
 
 export const NavBar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const authtoken = localStorage.getItem("token");
+    const authUser = localStorage.getItem("user");
+
+    setIsLoggedIn(!!authtoken);
+    if (authUser) {
+      setUser(JSON.parse(authUser));
+    } 
+  }, []);
+
+  const handleSignOut = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    setIsLoggedIn(false);
+    setUser(null);
+  };
+
   return (
     <header className="sticky border-b-[1px] top-0 z-40 w-full bg-white dark:border-b-slate-700 dark:bg-background">
       <NavigationMenu className="mx-auto my-1">
         <NavigationMenuList className="container h-20 px-4 w-screen flex justify-between ">
           <NavigationMenuItem className="font-bold flex">
-            <Link to="/" className="ml-2 mb-2 font-bold text-xl flex">
-              <img src="/assets/react.svg" alt="logo" />
+            <Link to="/" className="ml-2 mb-2 font-extrabold text-3xl flex">
+              User<span className="text-blue-500">Mick</span>
             </Link>
           </NavigationMenuItem>
 
@@ -43,20 +71,17 @@ export const NavBar = () => {
               <SheetContent side={"left"}>
                 <SheetHeader>
                   <SheetTitle className="font-bold text-xl">
-                    <Link to="/" className="ml-2 mt-5 font-bold text-xl flex">
-                      <img
-                        src="/logo.svg"
-                        alt="logo"
-                      />
+                    <Link
+                      to="/"
+                      className="ml-2 mb-2 font-extrabold text-3xl flex"
+                    >
+                      User<span className="text-blue-500">Mick</span>
                     </Link>
                   </SheetTitle>
                 </SheetHeader>
-                { true ? (
+                {isLoggedIn ? (
                   <nav className="flex flex-col items-start gap-8">
-                    <Button variant="ghost">
-                      Welcome,
-                      
-                    </Button>
+                    <Button variant="ghost">Welcome {user?.name}</Button>
                     <Link
                       to="/"
                       className={`${buttonVariants({
@@ -65,15 +90,7 @@ export const NavBar = () => {
                     >
                       Home
                     </Link>
-                    <Link
-                      to="/home"
-                      className={`${buttonVariants({
-                        variant: "outline",
-                      })}`}
-                    >
-                      Dashboard
-                    </Link>
-                    <Button>
+                    <Button onClick={handleSignOut}>
                       Sign out
                       <MoveRight />
                     </Button>
@@ -107,11 +124,9 @@ export const NavBar = () => {
 
           {/* desktop */}
 
-          {true ? (
+          {isLoggedIn ? (
             <nav className="hidden md:flex gap-2">
-              <Button variant="ghost">
-                Welcome,
-              </Button>
+              <Button variant="ghost">Welcome {user?.name}</Button>
               <Link
                 to="/"
                 className={`${buttonVariants({
@@ -120,15 +135,7 @@ export const NavBar = () => {
               >
                 Home
               </Link>
-              <Link
-                to="/home"
-                className={`${buttonVariants({
-                  variant: "outline",
-                })}`}
-              >
-                Dashboard
-              </Link>
-              <Button>
+              <Button onClick={handleSignOut}>
                 Sign out
                 <MoveRight />
               </Button>

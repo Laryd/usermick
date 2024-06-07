@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { User } from "./UsersTable";
+import { API_URL, User } from "./UsersTable";
 import { z } from "zod";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
@@ -79,20 +79,18 @@ export function UserEditModal({user,
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    
     try {
       // Validate the form data using the Zod schema
       userSchema.parse(formData);
       // If validation passes, submit the form data
       setSending(true);
       console.log(formData);
-      await axios.put<User>(
-        `https://myjsonserver-o9en.onrender.com/users/${user.id}`,
-        {
-          ...formData,
-          id: user.id,
-          isAdmin: user.isAdmin,
-        }
-      );
+      await axios.put<User>(`${API_URL}/users/${user.id}`, {
+        ...formData,
+        id: user.id,
+        isAdmin: user.isAdmin,
+      });
       //show message if successful
       toast({
         variant: "default",

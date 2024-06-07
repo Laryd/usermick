@@ -11,7 +11,7 @@ import {
 } from "./ui/table";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Trash2, UserIcon } from "lucide-react";
+import { Loader2, Trash2, UserIcon } from "lucide-react";
 import { UserEditModal } from "./UserEditModal";
 import { useToast } from "./ui/use-toast";
 import {
@@ -21,6 +21,10 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui/pagination";
+import { UserAddModal } from "./UserAddModal";
+import { useNavigate } from "react-router-dom";
+
+export const API_URL:string ="https://myjsonserver-o9en.onrender.com"
 
 export interface User {
   id: number;
@@ -38,7 +42,22 @@ const UsersTable = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize] = useState<number>(5);
   const [hasNextPage, setHasNextPage] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [user, setUser] = useState<User | null>(null);
   const { toast } = useToast();
+  const navigate = useNavigate()
+  useEffect(() => {
+    const authtoken = localStorage.getItem("token");
+    const authUser = localStorage.getItem("user");
+
+    setIsLoggedIn(!!authtoken);
+    if (authUser) {
+      setUser(JSON.parse(authUser));
+    }else {
+      navigate("/signin");
+    }
+  }, [user, isLoggedIn, navigate])
 
   useEffect(() => {
     loadUsersData();
@@ -46,9 +65,11 @@ const UsersTable = () => {
 
   async function loadUsersData() {
     try {
+      setLoading(true)
       const response = await axios.get<User[]>(
-        `https://myjsonserver-o9en.onrender.com/users?_page=${currentPage}&_limit=${pageSize}`
+        `${API_URL}/users?_page=${currentPage}&_limit=${pageSize}`
       );
+      setLoading(false)
       setUsers(response.data);
       setHasNextPage(response.data.length === pageSize);
     } catch (err) {
@@ -63,9 +84,11 @@ const UsersTable = () => {
   const searchHandler = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+        setLoading(true)
       const response = await axios.get<User[]>(
-        `https://myjsonserver-o9en.onrender.com/users?q=${value}`
+        `${API_URL}/users?q=${value}&_page=${currentPage}&_limit=${pageSize}`
       );
+      setLoading(false)
       setUsers(response.data);
       setValue("");
     } catch (err) {
@@ -80,7 +103,7 @@ const UsersTable = () => {
   const deleteUserHandler = async (userId: number) => {
     try {
       await axios.delete(
-        `https://myjsonserver-o9en.onrender.com/users/${userId}`
+        `${API_URL}/users/${userId}`
       );
       toast({
         variant: "default",
@@ -121,20 +144,26 @@ const UsersTable = () => {
         className="flex flex-col justify-end items-end gap-4"
         onSubmit={searchHandler}
       >
-        <form className="flex w-full max-w-sm items-center space-x-2">
-          <Input
-            type="search"
-            value={value}
-            placeholder="find user by name"
-            onChange={(e) => setValue(e.target.value)}
-          />
-          <Button type="submit">
-            <span className="ml-2">Search</span>
-          </Button>
-          <Button onClick={handleReset}>
-            <span className="ml-2">Reset</span>
-          </Button>
-        </form>
+        <div className="flex flex-row-reverse gap-20 items-center">
+          <form className="flex w-full max-w-sm items-center space-x-2">
+            <Input
+              type="search"
+              value={value}
+              placeholder="find user by name"
+              onChange={(e) => setValue(e.target.value)}
+            />
+            <Button type="submit">
+              <span className="ml-2">Search</span>
+            </Button>
+            <Button onClick={handleReset}>
+              <span className="ml-2">Reset</span>
+            </Button>
+          </form>
+           {user?.isAdmin ?
+          <div>
+            Your are an admin <UserAddModal onUserUpdate={loadUsersData}/>
+          </div>: null}
+        </div>
         <Table>
           <TableHeader>
             <TableRow className="bg-black text-white hover:bg-blue-950 hover:text-white">
@@ -145,7 +174,13 @@ const UsersTable = () => {
             </TableRow>
           </TableHeader>
           {users.length === 0 ? (
-            <caption>No user found</caption>
+            loading ? (
+              <caption>
+                <Loader2 className="animate-spin h-5 w-5 text-green-600 ml-5" />
+              </caption>
+            ) : (
+              <caption>No user found</caption>
+            )
           ) : (
             <TableBody>
               {users.map((user) => (
