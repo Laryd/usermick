@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.5.0](https://github.com/Laryd/usermick/compare/v1.4.0...v1.5.0) (2024-06-07)
+
+
+### Features
+
+* **admin add:** add user by admin ([a632d93](https://github.com/Laryd/usermick/commit/a632d9394d69b7669e56e26d80ca200e9a7f0212))
+* **auth:** add authentication ([92af248](https://github.com/Laryd/usermick/commit/92af2484c87042c2de3f1097850c7f1a45e02dfd))
+* **docs:** add doc to project ([0dceab4](https://github.com/Laryd/usermick/commit/0dceab43dab5b7bfcc9b9670536d4b013c3af396))
+
 ## [1.4.0](https://github.com/Laryd/usermick/compare/v1.3.0...v1.4.0) (2024-06-07)
 
 
