@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Laryd/usermick/compare/v1.3.0...v1.4.0) (2024-06-07)
+
+
+### Features
+
+* add shadcn toast and pagination ui dependencies ([2ca79e4](https://github.com/Laryd/usermick/commit/2ca79e43489a1c704937232d11acea99282257a8))
+* add shadcn toast and pagination uis ([171fdd1](https://github.com/Laryd/usermick/commit/171fdd1216b7b8043c546f6950600019920751fd))
+* add userEditModal ui ([3b876b2](https://github.com/Laryd/usermick/commit/3b876b20fd79f3028d3ae76697a185098407c783))
+* setup toaster provider for notifications ([ac9f318](https://github.com/Laryd/usermick/commit/ac9f3185ec6475b8557b3d89333ba08bb5dc79bb))
+
 ## [1.3.0](https://github.com/Laryd/usermick/compare/v1.2.0...v1.3.0) (2024-06-06)
 
 
