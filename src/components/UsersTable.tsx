@@ -102,6 +102,7 @@ const UsersTable = () => {
 
   const deleteUserHandler = async (userId: number) => {
     try {
+        alert("Are you sure?")
       await axios.delete(
         `${API_URL}/users/${userId}`
       );
