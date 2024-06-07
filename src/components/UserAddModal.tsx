@@ -15,7 +15,7 @@ import { API_URL } from "./UsersTable";
 import { z } from "zod";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
-import { Edit, Loader2, Plus } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
 
 // Define the Zod schema for form validation
 const userSchema = z.object({
