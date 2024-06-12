@@ -102,16 +102,23 @@ const UsersTable = () => {
 
   const deleteUserHandler = async (userId: number) => {
     try {
-        confirm("Are you sure?")
-      await axios.delete(
-        `${API_URL}/users/${userId}`
-      );
-      toast({
-        variant: "default",
-        title: "User deleted",
-        description: "The user was deleted successfully",
-      });
-      loadUsersData();
+        const confirmed = confirm("Are you sure?");
+        if (confirmed) {
+          await axios.delete(`${API_URL}/users/${userId}`);
+          toast({
+            variant: "default",
+            title: "User deleted",
+            description: "The user was deleted successfully",
+          });
+          loadUsersData();
+        }else{
+          toast({
+            variant: "default",
+            title: "Deletion canceled",
+            description: "The user deletion was canceled.",
+          });
+        }
+      
     } catch (err) {
       toast({
         variant: "destructive",
